@@ -2,9 +2,13 @@
 Conduct rare variant association analyses using whole exome sequencing data by calibrating individual and gene-level biases between an internal dataset and external repositories 
 
 ## RV-EXCALIBER DIRECTORY ARCHITECTURE
-+ test
-- test
-
+* /rvexcaliber
+  * /expected_output_files
+  * /input_samples
+  * /Rscripts
+  * /script_files
+  * /user_outputs
+  
 ## SYSTEM REQUIREMENTS
 
 ## INSTALLATION GUIDE
