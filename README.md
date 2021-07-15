@@ -63,7 +63,9 @@ git init
 
 git clone https://github.com/GMELab/RV-EXCALIBER.git
 ```
+**Expected download time:** 3-5 minutes
 
+**Space required on local system:** 310 MB
 
 ## Directory architecture
 
@@ -233,7 +235,7 @@ Each of the 4 shell scripts that are to be executed by the user will require eit
 ### 1A. ```get_RVBurdenMatrix_internal_rvexcaliber.clean.sh```
 **4** paths to be defined by the user
 
-| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
+| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
 | Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 | Full path to the ANNOVAR perl scripts | ```annovar``` | ```/genetics/tools/annovar```
