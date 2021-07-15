@@ -474,5 +474,9 @@ Any queries pertaining to the RV-EXCALIBER scripts or methodological framework c
 **Ricky Lali (lalir@mcmaster.ca)** or **Guillaume Paré (pareg@mcmaster.ca)**
 
 ## Citation
+
+### Preprint
  Lali, R., Chong, M., Omidi, A., Mohammadi-Shermirani, P., Le, A., Cui, E., and Paré, G. Calibrated rare variant genetic risk scores for complex disease prediction using large exome sequence repositories. _bioRxiv_ 2020.02.03.931519 (2020) doi:10.1101/2020.02.03.931519.
 
+ ### GitHub repository
+ [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5104893.svg)](https://doi.org/10.5281/zenodo.5104893)
