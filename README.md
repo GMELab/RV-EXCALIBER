@@ -61,16 +61,16 @@ git init
 
 # Execute the git clone command
 
-git clone https://github.com/rlali/local_test.git
+git clone https://github.com/GMELab/RV-EXCALIBER.git
 ```
 
 
 ## Directory architecture
 
 ```sh
-# Enter the cloned rvexcaliber directory
+# Enter the cloned RV-EXCALIBER directory
 
-cd /genetics/rvexcaliber
+cd /genetics/RV-EXCALIBER
 
 # View directory architecture
 
@@ -235,7 +235,7 @@ Each of the 4 shell scripts that are to be executed by the user will require eit
 
 | Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
-| Full path to the cloned ```/rvexcaliber``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/rvexcaliber``` |
+| Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 | Full path to the ANNOVAR perl scripts | ```annovar``` | ```/genetics/tools/annovar```
 | Full path to the ```plink``` command-line executable in plink version 1.9 | ```plink```  | ```/genetics/tools/plink_v1.9/plink``` |
 | Full path to the ```intersectBed``` command-line executable in bedtools | ```bedtools``` | ```/genetics/tools/bedtools2/bin/intersectBed``` |
@@ -245,19 +245,19 @@ Each of the 4 shell scripts that are to be executed by the user will require eit
 
 | Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
-| Full path to the cloned ```/rvexcaliber``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/rvexcaliber``` |
+| Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
 ### 2. ```get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh```
 **1** path to be defined by the user
 | Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
-| Full path to the cloned ```/rvexcaliber``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/rvexcaliber``` |
+| Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
 ### 3. ```get_SummaryAssociations_iCF_gCF_rvexcaliber.clean.sh```
 **1** path to be defined by the user
 | Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
-| Full path to the cloned ```/rvexcaliber``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/rvexcaliber``` |
+| Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
 
 ## Running the RV-EXCALIBER scripts
@@ -268,7 +268,7 @@ Before running the RV-EXCALIBER scripts, please ensure each script has been prep
 
 ```sh
 # Define path to shell scripts
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 cd ${rvexcaliber_shell_scripts}
 
@@ -283,7 +283,7 @@ bash get_ANNOVAR_annotations.clean.sh
 ```sh
 # Define path to shell scripts
 
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 # If your internal testing or ranking dataset ** IS NOT ** split by chromosome  (or split in any other fashion):
 
@@ -296,7 +296,7 @@ bash get_RVBurdenMatrix_internal_rvexcaliber.clean.sh /genetics/inData /genetics
 
 ```sh
 # Define path to shell scripts
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 # If your internal testing or ranking dataset ** IS ** split by chromosome (or split in some other fashion):
 
@@ -352,7 +352,7 @@ bash get_combined_internal_matrix_rvexcaliber.clean.sh /genetics/outData MIGen_B
 ```sh
 # Define path to shell scripts:
 
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 # If your internal testing or ranking ** IS NOT ** split by chromosome:
 
@@ -369,7 +369,7 @@ bash get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh /genetics/outData MIGen_BioI
 ```sh
 # Define path to shell scripts:
 
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 # If you ** DO NOT** have a dedicated ranking dataset, set the 'internal_ranking_dataset' variable to NA
 
@@ -383,7 +383,7 @@ bash get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh /genetics/outData MIGen_BioI
 ```sh
 # Define path to shell scripts:
 
-rvexcaliber_shell_scripts=/genetics/rvexcaliber/scripts/shell
+rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 # If you ** DO ** have a dedicated ranking dataset, set the 'internal_ranking_dataset' variable to the name of your internal ranking dataset, which you defined in the 'get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh' script
 
