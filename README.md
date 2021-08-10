@@ -245,19 +245,19 @@ Each of the 4 shell scripts that are to be executed by the user will require eit
 ### 1B. ```get_combined_RVBurdenMatrix_internal_rvexcaliber.clean.sh``` (if necessary)
 **1** path to be defined by the user
 
-| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path |
+| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; |
 | ------ | ------ | ------ |
 | Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
 ### 2. ```get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh```
 **1** path to be defined by the user
-| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path |
+| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;| Corresponding variable name in script header | Example path &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; |
 | ------ | ------ | ------ |
 | Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
 ### 3. ```get_SummaryAssociations_iCF_gCF_rvexcaliber.clean.sh```
 **1** path to be defined by the user
-| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
+| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; |
 | ------ | ------ | ------ |
 | Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download))  | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 
