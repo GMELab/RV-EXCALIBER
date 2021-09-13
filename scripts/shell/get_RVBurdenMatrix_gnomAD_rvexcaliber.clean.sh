@@ -132,7 +132,7 @@ path_to_rvexcaliber=""
 if [[ ! -d ${path_to_rvexcaliber} ]]; then
 
     echo -e "\n"
-    echo "Error: The full path to the /rvexcaliber directory that was downloaded locally does not exist"
+    echo "Error: The full path to the /RV-EXCALIBER directory that was downloaded locally does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
 
 fi
