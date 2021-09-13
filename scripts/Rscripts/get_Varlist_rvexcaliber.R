@@ -4,7 +4,7 @@
 # Title: get_Varlist_rvexcaliber.R
 # Generate gene-based assoc_modiation statistics based on iCF-adjusted expected allele counts in gnomAD
 #=======================================================================================================================
-#    This file is part of rvexcaliber.
+#    This file is part of RV-EXCALIBER.
 #
 #    rvexcaliber is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -155,12 +155,12 @@ getBinary <- function(df, thresholds, filter, int_MAF=internal_MAF_threshold) {
 
         if (ncol(df) > 5) {
 
-
             if (length(which(apply(df,1,function(x) sum(is.na(x))==5)))>=1) {
 
 
                 # Obtain index of variants that are not observed in gnomAD,
                 # but present within your case dataset
+
 
                 no_MAF <-
                   which(
@@ -176,116 +176,127 @@ getBinary <- function(df, thresholds, filter, int_MAF=internal_MAF_threshold) {
                     )
                   )
 
-                dft <-
-                  as.data.frame(
-                    t(
-                      df
-                    )
-                  )
+               df[no_MAF,] <-
+                 do.call(
+                   "rbind",
+                   lapply(
+                     as.list(
+                       df[no_MAF,]$AF_int
+                     ),
+                     function(x)
+                     rep(
+                       x,
+                       each=
+                         ncol(
+                           df
+                         )
+                     )
+                   )
+                 )
 
-                dft[,no_MAF] <-
-                  rep(
-                    df[no_MAF,]$AF_int,
-                    each=
-                      ncol(
-                        df
-                      )
-                  )
+                 f1 <- function(y) {
 
-                df <-
-                  as.data.frame(
-                    t(
-                      dft
-                    )
-                  )
+                     indexed_rownames <-
+                       rownames(df)
 
-                f1 <- function(x, y) {
-
-                        indexed_rownames <-
-                          rownames(df)
-
-                        outa <-
-                          transform(
-                            df[-no_MAF,],
-                            binary=
-                              ifelse(
-                                df[-no_MAF,][,x]<y & df[-no_MAF,][,ncol(df)]<int_MAF,
-                                1,
-                                0
-                              )
-                          ); rownames(outa) <- indexed_rownames[-no_MAF]
-
-                        outb <-
-                          transform(
-                            df[no_MAF,],
-                            binary=
-                              ifelse(
-                                apply(
-                                  df[no_MAF,],
-                                  1,
-                                  function(x)
-                                  all(
-                                    x<int_MAF
-                                  )
-                                ),
-                                1,
-                                0
-                              )
-                          ); rownames(outb) <- no_MAF
-
-                         out <-
-                           rbind(
-                             outa,
-                             outb
+                     outa <-
+                       transform(
+                         df[-no_MAF,],
+                         binary=
+                           ifelse(
+                             apply(
+                               df[-no_MAF,-ncol(df[-no_MAF])],
+                               1,
+                               function(x)
+                               all(
+                                 x<y
+                               )
+                             ) & df[-no_MAF,][,ncol(df)]<int_MAF,
+                             1,
+                             0
                            )
+                       ); rownames(outa) <- indexed_rownames[-no_MAF]
 
-                         suppressWarnings(out <-
-                           out[order(as.numeric(rownames(out))),])
+                     outb <-
+                       transform(
+                         df[no_MAF,],
+                         binary=
+                           ifelse(
+                             apply(
+                               df[no_MAF,],
+                               1,
+                               function(x)
+                               all(
+                                 x<int_MAF
+                               )
+                             ),
+                             1,
+                             0
+                           )
+                       ); rownames(outb) <- no_MAF
 
-                    return(out)
+                     out <-
+                       rbind(
+                         outa,
+                         outb
+                       )
 
-                }
+                     suppressWarnings(out <-
+                       out[order(as.numeric(rownames(out))),])
 
-            } else {
-
-
-                f1 <- function(x, y) {
-
-                        out <-
-                          transform(
-                            df,
-                            binary=
-                              ifelse(
-                                df[,x]<y & df[,ncol(df)]<int_MAF,
-                                1,
-                                0
-                              )
-                          )
-
-                 return(out)
+                     return(out)
 
                  }
 
-            }
+            } else {
 
-            df <-
-              df[,-6]
+              f1 <- function(y) {
+
+                  out <-
+                    transform(
+                      df,
+                      binary=
+                        ifelse(
+                          apply(
+                            df[,-ncol(df)],
+                            1,
+                            function(x)
+                            all(
+                              x<y
+                            )
+                          ) & df[,ncol(df)]<int_MAF,
+                          1,
+                          0
+                        )
+                    )
+
+                  return(out)
+
+                }
+
+            }
 
         } else if (ncol(df) == 5) {
 
+            f1 <- function(y) {
 
-            f1 <- function(x, y) {
-
-                    out <-
-                      transform(
-                        df,
-                        binary=
-                          ifelse(
-                            df[,x]<y,
-                            1,
-                            0
+                out <-
+                  transform(
+                    df,
+                    binary=
+                      ifelse(
+                        apply(
+                          df,
+                          1,
+                          function(x)
+                          all(
+                            x<y
                           )
+                        ),
+                        1,
+                        0
                       )
+                  )
 
                 return(out)
 
@@ -293,25 +304,33 @@ getBinary <- function(df, thresholds, filter, int_MAF=internal_MAF_threshold) {
 
         }
 
-    suffix <-
-      c(
-        "nfe",
-        "afr",
-        "sas",
-        "eas",
-        "amr"
-      )
-
     } else if (filter == "MCAP") {
 
-        f1 <- function(x, y) {
+        f1 <- function(y) {
+
+
+            # This will ensure all variants without an M.CAP score will be
+            # defaulted to have an M.CAP score of 0
+
+
+            df[is.na(df)] <-
+              0
+
+            disruptive <-
+              c(
+                "splicing",
+                "stoploss",
+                "stopgain",
+                "frameshift deletion",
+                "frameshift insertion"
+              )
 
             out <-
               transform(
                 df,
                 binary=
                   ifelse(
-                    df[,x]>y,
+                    df$Func.refGene %in% disruptive | df$ExonicFunc.refGene %in% disruptive | df$M.CAP_score>y,
                     1,
                     0
                   )
@@ -321,58 +340,40 @@ getBinary <- function(df, thresholds, filter, int_MAF=internal_MAF_threshold) {
 
         }
 
-    suffix <-
-      "all"
-
     } else {
 
         stop("Incorrent 'filter' input")
 
     }
 
-    ind <-
-      as.list(
-        1:ncol(df)
-      )
-
     thresholds_l <-
       as.list(
-        rep(
-          thresholds,
-          1,
-          each=
-            ncol(
-              df
-            )
-        )
+        thresholds,
       )
 
     df_binary <-
-      mapply(
-        f1,
-        ind,
-        thresholds_l,
-        SIMPLIFY=
-          FALSE
-      )
-
-    df_binary_comb <-
       do.call(
         "cbind",
         lapply(
-          df_binary,
+          thresholds_l,
           function(x)
-          x[,ncol(df)+1]
+          matrix(
+            f1(
+              x
+            )[,ncol(df)+1],
+            ncol=
+              1
+          )
         )
       )
 
-    rownames(df_binary_comb) <-
+    rownames(df_binary) <-
       ID$ID
 
-    colnames(df_binary_comb) <-
-      paste0(paste0(filter,"_",rep(thresholds,each=ncol(df)),"_",rep(suffix,length(thresholds))))
+    colnames(df_binary) <-
+      paste0(filter,"_",thresholds)
 
-    return(df_binary_comb)
+    return(df_binary)
 
 }
 
@@ -400,36 +401,21 @@ getExtract <- function(thresholds_a, thresholds_b, mat_a, mat_b) {
         function(x)
         names(
           which(
-            apply(
-              mat_a[,which(grepl(x,colnames(mat_a)))],1,sum
-            ) == 5
+            mat_a[,which(grepl(x,colnames(mat_a)))]==1
           )
         )
       )
 
-    if (ncol(dfMCAP_binary)==1) {
-
-        MCAP_out <-
-        lapply(
-          thresholds_b_l,
-          function(x)
-          names(
-            mat_b[mat_b[,which(grepl(paste0("MCAP_",x,"_all"),colnames(mat_b)))]==1,]
+    MCAP_out <-
+      lapply(
+        thresholds_b_l,
+        function(x)
+        names(
+          which(
+            mat_b[,which(grepl(x,colnames(mat_b)))]==1
           )
         )
-
-    } else {
-
-        MCAP_out <-
-          lapply(
-            thresholds_b_l,
-            function(x)
-            rownames(
-              mat_b[mat_b[,which(grepl(paste0("MCAP_",x,"_all"),colnames(mat_b)))]==1,]
-            )
-          )
-
-    }
+      )
 
     pairwise_int <-
     lapply(
@@ -451,7 +437,9 @@ getExtract <- function(thresholds_a, thresholds_b, mat_a, mat_b) {
       )
     )
 
+
     # Use pairwise_int to subset ID dataframe and generate gnomAD cumulative minor allele counts (CMAC)
+
 
     pairwise_int_a <-
       lapply(
@@ -485,7 +473,9 @@ getExtract <- function(thresholds_a, thresholds_b, mat_a, mat_b) {
         )
      )
 
+
     # Merge on Gene
+
 
     f1_merge <- function (x,y,u) { z <- merge(x,y,by=u); return(z) }
 
@@ -506,7 +496,9 @@ getExtract <- function(thresholds_a, thresholds_b, mat_a, mat_b) {
         x[,-1]
       )
 
+
     # Save names as global list variable
+
 
     file_names <<-
       do.call(
@@ -558,11 +550,17 @@ getWrite <- function(x,y) {
 # Load in testing/ranking and gnomAD rare variant burden matrices
 
 
-args              <- commandArgs(TRUE)
+args <-
+  commandArgs(TRUE)
 
-outdir            <- args[1]
-study             <- args[2]
-input             <- args[3]
+outdir <-
+  args[1]
+
+study <-
+  args[2]
+
+input <-
+  args[3]
 
 if (grepl(",",args[4])) {
 
@@ -607,23 +605,28 @@ MCAP_threshold   <- as.numeric(args[6])
 
 if (grepl("_",args[7])) {
 
-eth <-
-  as.character(
-    unlist(
-      strsplit(
-        args[7],
-        "_"
+    eth <-
+      as.character(
+        unlist(
+          strsplit(
+            args[7],
+            "_"
+          )
+        )
       )
-    )
-  )
 
 } else {
 
-eth              <- args[7]
+    eth <-
+      args[7]
 
 }
 
-coverage         <- args[8]
+coverage <-
+  args[8]
+
+
+# Read in R_input file
 
 
 dfAll <-
@@ -637,30 +640,24 @@ dfAll <-
   )
 
 
-# Index gnomAD MAF, internal MAF, and MCAP fields
+# Extract gnomAD MAF, internal MAF, and MCAP fields
 
 
 MAF_fields <-
-  which(
-    names(
-      dfAll
-    ) %in%
-    c(
-      "AF_nfe",
-      "AF_afr",
-      "AF_sas",
-      "AF_eas",
-      "AF_amr",
-      "AF_int"
-    )
+  c(
+    "AF_nfe",
+    "AF_afr",
+    "AF_sas",
+    "AF_eas",
+    "AF_amr",
+    "AF_int"
   )
 
-
 MCAP_fields <-
-  which(
-    names(
-      dfAll
-    ) == "M.CAP_score"
+  c(
+    "Func.refGene",
+    "ExonicFunc.refGene",
+    "M.CAP_score"
   )
 
   dfMAF <-
@@ -688,10 +685,6 @@ dfMAF <-
     )
   )
 
-
-#
-
-
 dfMAF2 <-
   suppressWarnings( # 'as.numeric' will intoduce 'NA' by coersion, this is normal
     mutate_all(     # behaviour and is the reason for the warning
@@ -715,25 +708,14 @@ dfMAF2 <-
 dfMAF2[is.na(dfMAF2)] <-
   0
 
-dfMCAP <-
-  suppressWarnings( # 'as.numeric' will introduce 'NA' by coersion, this is normal
-    data.frame(     # this is normal behaviour and is the reason for the warning
-      M.CAP_score=
-        as.numeric(
-          as.character(
-            dfMCAP
-          )
-        )
+dfMCAP$M.CAP_score <-
+  suppressWarnings( # Set 'NA's in dfMCAP to 0 for now (these are variants that are not
+    as.numeric(     # nonsynonymous SNVs or those that have a MAF >0.01)
+      as.character(
+        dfMCAP$M.CAP_score
+      )
     )
   )
-
-
-# Set 'NA's in dfMCAP to 0 for now (these are variants that are not
-# nonsynonymous SNVs or those that have a MAF >0.01)
-
-
-dfMCAP[is.na(dfMCAP)] <-
-  0
 
 
 # Index gnomAD ancestry
@@ -851,22 +833,6 @@ dfMCAP_binary <-
     MCAP_threshold,
     "MCAP"
   )
-
-# All variants that are 'disrputive' will automatically get a 1 for each
-# MCAP category
-
-
-disruptive <-
-  c(
-    "splicing",
-    "stoploss",
-    "stopgain",
-    "frameshift_deletion",
-    "frameshift_insertion"
-  )
-
-dfMCAP_binary[which(dfAll$Func.refGene %in% disruptive | dfAll$ExonicFunc.refGene %in% disruptive),] <-
-  1
 
 
 # Convert 'eth' back to being underscore delimited
