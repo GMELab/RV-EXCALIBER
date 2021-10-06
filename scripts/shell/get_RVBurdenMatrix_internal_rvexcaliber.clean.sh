@@ -159,7 +159,7 @@
 # ** < Please enter the full path to the cloned '/rvexcaliber' directory (example below): > **
 
 
-path_to_rvexcaliber="/torrent_vol_2018/lalir_dbGaP_repositories/temp_out/github_RV-EXCALIBER_ADSP/RV-EXCALIBER"
+path_to_rvexcaliber=""
 
 
 # Example: "/genetics/rvexcaliber"
@@ -168,7 +168,7 @@ path_to_rvexcaliber="/torrent_vol_2018/lalir_dbGaP_repositories/temp_out/github_
 # ** < Please enter the full path the directory containing the ANNOVAR perl scripts (example below): > **
 
 
-annovar="/genetics_work/lalir/programs/annovar"
+annovar=""
 
 
 # Example: "/genetics/tools/annovar"
@@ -189,7 +189,7 @@ annovar="/genetics_work/lalir/programs/annovar"
 # ** < Please enter the full path the plink (version 1.9) command-line executable (example below): > **
 
 
-plink="/genetics/PAREG/common/plink_1.9/plink"
+plink=""
 
 
 # Example: "/genetics/tools/plink_1.9/plink"
@@ -199,7 +199,7 @@ plink="/genetics/PAREG/common/plink_1.9/plink"
 # Note: this path can be left blank if the 'coverage' is set to "rcc"
 
 
-bedtools="/genetics_work/lalir/programs/bedtools2/bin/intersectBed"
+bedtools=""
 
 
 # Example: "/genetics/tools/bedtools2/bin/intersectBed"
@@ -545,6 +545,10 @@ if [[ $# = 9 ]]; then
 
             }' ${outdir}/${internal_dataset}_re.bim > ${outdir}/${internal_dataset}_sites.txt
 
+            # Extract sites that are either PASS or not observed in gnomAD
+
+            gunzip -c ${gnomAD_filter}/ALL_CHROM_gnomAD_filter.txt.gz |
+
             awk 'NR==FNR {
 
                  FILTER[$1]=$2; next
@@ -555,7 +559,7 @@ if [[ $# = 9 ]]; then
 
                 print $0, ($1 in FILTER ? FILTER[$1] : "Not_obs")
 
-            }' ${gnomAD_filter}/ALL_CHROM_gnomAD_filter.txt ${outdir}/${internal_dataset}_sites.txt |
+            }' - ${outdir}/${internal_dataset}_sites.txt |
 
             grep -Ew "PASS|Not_obs" |
 
