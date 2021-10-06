@@ -65,7 +65,7 @@ git clone https://github.com/GMELab/RV-EXCALIBER.git
 ```
 **Expected download time:** 1-5 minutes
 
-**Space required on local system:** 440 MB
+**Space required on local system:** 155 MB
 
 ## Directory architecture
 
