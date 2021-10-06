@@ -5,18 +5,18 @@
 #=======================================================================================================================
 #    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Authors: Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaum Pare
 #=======================================================================================================================
@@ -43,19 +43,44 @@ if (!"ggplot2" %in% installed.packages()) {
 suppressMessages(library(ggplot2))
 suppressMessages(library(data.table))
 
-args                   <- commandArgs(TRUE)
-path_to_rvexcaliber    <- args[1]
-outdir                 <- args[2]
-internal_testing_study <- args[3]
-internal_ranking_study <- args[4]
-stage                  <- args[5]
-MAF_MCAP               <- args[6]
-eth                    <- args[7]
-coverage               <- args[8]
-adjust_type            <- args[9]
-testing_RVBurdenMatrix <- args[10]
-ranking_RVBurdenMatrix <- args[11]
-gnomAD_RVBurdenMatrix  <- args[12]
+args <-
+  commandArgs(TRUE)
+
+path_to_rvexcaliber <-
+  args[1]
+
+outdir <-
+  args[2]
+
+internal_testing_study <-
+  args[3]
+
+internal_ranking_study <-
+  args[4]
+
+stage <-
+  args[5]
+
+MAF_MCAP <-
+  args[6]
+
+eth <-
+  args[7]
+
+coverage <-
+  args[8]
+
+adjust_type <-
+  args[9]
+
+testing_RVBurdenMatrix <-
+  args[10]
+
+ranking_RVBurdenMatrix <-
+  args[11]
+
+gnomAD_RVBurdenMatrix  <-
+  args[12]
 
 
 # Reset the 'adjust_type'
@@ -605,7 +630,7 @@ rvexcaliber_fin_df_P_order <-
 if (stage == "stage0") {
 
     test_rank <-
-      paste0("testing_",internal_ranking_study)
+      paste0("ranking_",internal_ranking_study)
 
 } else if (stage == "stage1" | stage == "stage2") {
 

@@ -11,13 +11,13 @@
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Copyright 2021 Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaume Pare
 #===============================================================================================================================
@@ -137,6 +137,7 @@ if [[ ! -d ${path_to_rvexcaliber} ]]; then
     echo -e "\n"
     echo "Error: The full path to the /RV-EXCALIBER directory that was downloaded locally does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
 
 fi
 

@@ -5,18 +5,18 @@
 #=======================================================================================================================
 #    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Authors: Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaum Pare
 #=======================================================================================================================
@@ -48,17 +48,38 @@ suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
 suppressMessages(library(data.table))
 
-args                                    <- commandArgs(TRUE)
-outdir                                  <- args[1]
-internal_study                          <- args[2]
-MAF_MCAP                                <- args[3]
-eth                                     <- args[4]
-coverage                                 <- args[5]
-adjust_type                             <- args[6]
-testing_RVBurdenMatrix_pruned           <- args[7]
-gnomAD_RVBurdenMatrix_pruned_iCFadjust  <- args[8]
-testing_SummaryAssociations_df          <- args[9]
-ranking_SummaryAssociations_df          <- args[10]
+args <-
+  commandArgs(TRUE)
+
+outdir <-
+   args[1]
+
+internal_study <-
+  args[2]
+
+MAF_MCAP <-
+  args[3]
+
+eth <-
+  args[4]
+
+coverage <-
+  args[5]
+
+adjust_type <-
+  args[6]
+
+testing_RVBurdenMatrix_pruned <-
+  args[7]
+
+gnomAD_RVBurdenMatrix_pruned_iCFadjust <-
+  args[8]
+
+testing_SummaryAssociations_df <-
+  args[9]
+
+ranking_SummaryAssociations_df <-
+  args[10]
 
 
 # Reset the 'adjust_type'

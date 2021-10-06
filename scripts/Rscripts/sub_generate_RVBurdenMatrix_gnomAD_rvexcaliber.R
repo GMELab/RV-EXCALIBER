@@ -3,20 +3,20 @@
 #===============================================================================================================================
 # Title: sub_generate_RVBurdenMatrix_gnomAD_rvexcaliber.R
 #===============================================================================================================================
-#    This file is part of rvexcaliber.
+#    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Copyright 2021 Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaume Pare
 #===============================================================================================================================
@@ -38,13 +38,26 @@ if (!"data.table" %in% installed.packages()) {
 
 library(data.table)
 
-args                          <- commandArgs(TRUE)
-outdir                        <- args[1]
-internal_study                <- args[2]
-MAF_MCAP                      <- args[3]
-eth                           <- args[4]
-coverage                      <- args[5]
-internal_study_RVBurdenMatrix <- args[6]
+args <-
+  commandArgs(TRUE)
+
+outdir <-
+  args[1]
+
+internal_study <-
+  args[2]
+
+MAF_MCAP <-
+  args[3]
+
+eth <-
+  args[4]
+
+coverage <-
+  args[5]
+
+internal_study_RVBurdenMatrix <-
+  args[6]
 
 
 # Define functions

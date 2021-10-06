@@ -7,18 +7,18 @@
 #===============================================================================================================================
 #    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Copyright 2021 Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaume Pare
 #===============================================================================================================================
@@ -159,7 +159,7 @@
 # ** < Please enter the full path to the cloned '/rvexcaliber' directory (example below): > **
 
 
-path_to_rvexcaliber=""
+path_to_rvexcaliber="/torrent_vol_2018/lalir_dbGaP_repositories/temp_out/github_RV-EXCALIBER_ADSP/RV-EXCALIBER"
 
 
 # Example: "/genetics/rvexcaliber"
@@ -168,7 +168,7 @@ path_to_rvexcaliber=""
 # ** < Please enter the full path the directory containing the ANNOVAR perl scripts (example below): > **
 
 
-annovar=""
+annovar="/genetics_work/lalir/programs/annovar"
 
 
 # Example: "/genetics/tools/annovar"
@@ -189,7 +189,7 @@ annovar=""
 # ** < Please enter the full path the plink (version 1.9) command-line executable (example below): > **
 
 
-plink=""
+plink="/genetics/PAREG/common/plink_1.9/plink"
 
 
 # Example: "/genetics/tools/plink_1.9/plink"
@@ -199,7 +199,7 @@ plink=""
 # Note: this path can be left blank if the 'coverage' is set to "rcc"
 
 
-bedtools=""
+bedtools="/genetics_work/lalir/programs/bedtools2/bin/intersectBed"
 
 
 # Example: "/genetics/tools/bedtools2/bin/intersectBed"
@@ -220,24 +220,28 @@ if [[ ! -d ${path_to_rvexcaliber} ]]; then
     echo -e "\n"
     echo "Error: The full path to the /RV-EXCALIBER directory that was downloaded locally does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
 
 elif [[ ! -d ${annovar} ]]; then
 
     echo -e "\n"
     echo "Error: The full path to the /annovar directory does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
 
 elif [[ ! -f ${plink} ]]; then
 
     echo -e "\n"
     echo "Error: The full path to the plink v1.9 command-line executable does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
 
 elif [[ ! -f ${bedtools} ]]; then
 
     echo -e "\n"
     echo "Error: The full path to the full path to the bedtools' 'intersectBed' command-line executable does not exist"
     echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
 
 fi
 
@@ -541,9 +545,19 @@ if [[ $# = 9 ]]; then
 
             }' ${outdir}/${internal_dataset}_re.bim > ${outdir}/${internal_dataset}_sites.txt
 
-            zgrep -w -F -f ${outdir}/${internal_dataset}_sites.txt ${gnomAD_filter}/ALL_CHROM_gnomAD_filter.txt.gz |
+            awk 'NR==FNR {
 
-            grep -w PASS |
+                 FILTER[$1]=$2; next
+
+            }
+
+            {
+
+                print $0, ($1 in FILTER ? FILTER[$1] : "Not_obs")
+
+            }' ${gnomAD_filter}/ALL_CHROM_gnomAD_filter.txt ${outdir}/${internal_dataset}_sites.txt |
+
+            grep -Ew "PASS|Not_obs" |
 
             awk '{
 
@@ -1110,7 +1124,7 @@ if [[ $# = 9 ]]; then
 
             rm -f ${outdir}/${internal_dataset}_variant_list_extracted_${MAF_MCAP}_${coverage}*
 
-            Rscript ${scripts}/Rscripts/get_Varlist_rvexcaliber.R ${outdir} ${internal_dataset} ${outdir}/${internal_dataset}_pruned_annotation_for_R_input_${coverage}.txt.gz ${gnomAD_MAF_threshold} ${internal_MAF_threshold} ${MCAP_threshold} ${eth} ${coverage}
+            Rscript ${scripts}/Rscripts/get_Varlist_rvexcaliber.R ${outdir} ${internal_dataset} ${outdir}/${internal_dataset}_pruned_annotation_for_R_input_${coverage}.txt.gz ${gnomAD_MAF_threshold} ${internal_MAF_threshold} ${MCAP_threshold} ${eth} ${coverage} "N"
 
         )}
         get_Varlist

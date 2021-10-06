@@ -6,18 +6,18 @@
 #=======================================================================================================================
 #    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Authors: Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaum Pare
 #=======================================================================================================================
@@ -583,7 +583,8 @@ if (grepl(",",args[4])) {
 
 }
 
-internal_MAF_threshold <- args[5]
+internal_MAF_threshold <-
+  args[5]
 
 if (grepl(",",args[6])) {
 
@@ -625,6 +626,9 @@ if (grepl("_",args[7])) {
 coverage <-
   args[8]
 
+is_gnomAD <-
+  args[9]
+
 
 # Read in R_input file
 
@@ -638,6 +642,27 @@ dfAll <-
     sep=
       "\t"
   )
+
+
+# If gnomAD, then create a dummy internal AF field with and threshold
+
+
+if (is_gnomAD == "Y") {
+
+    dfAll$AF_int <-
+      rep(
+        as.numeric(
+          0
+        ),
+      nrow(
+        dfAll
+      )
+    )
+
+    dfAll <-
+      dfAll[,c(1:13,15,14)]
+
+}
 
 
 # Extract gnomAD MAF, internal MAF, and MCAP fields

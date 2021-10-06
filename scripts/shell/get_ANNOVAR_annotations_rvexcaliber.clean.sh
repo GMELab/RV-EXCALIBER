@@ -6,18 +6,18 @@
 #===============================================================================================================================
 #    This file is part of RV-EXCALIBER.
 #
-#    rvexcaliber is free software: you can redistribute it and/or modify
+#    RV-EXCALIBER is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
 #    (at your option) any later version.
 #
-#    rvexcaliber is distributed in the hope that it will be useful,
+#    RV-EXCALIBER is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
 #    You should have received a copy of the GNU General Public License
-#    along with rvexcaliber.  If not, see <https://www.gnu.org/licenses/>.
+#    along with RV-EXCALIBER.  If not, see <https://www.gnu.org/licenses/>.
 
 # Copyright 2021 Ricky Lali, Michael Chong, Arghavan Omidi, Pedrum Mohammadi-Shemirani, Ann Le, Edward Cui, and Guillaume Pare
 #===============================================================================================================================
@@ -46,7 +46,7 @@ annovar=""
 # Example: "/genetics/tools/annovar"
 
 
-# The following scripts were used to obtain the ** necessary ** input files from ANNOVAR used by rvexcaliber
+# The following scripts were used to obtain the ** necessary ** input files from ANNOVAR used by RV-EXCALIBER
 
 # 1. The refGene database:
 # perl ${annovar}/annotate_variation.pl -buildver hg19 -downdb -webfrom annovar refGene ${annovar}/humandb/
@@ -60,6 +60,25 @@ annovar=""
 
 #-------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+#-------------------------------------------------------------------------------------------------------------------------------
+# Check script preparation
+#-------------------------------------------------------------------------------------------------------------------------------
+
+
+if [[ ! -d ${annovar} ]]; then
+
+    echo -e "\n"
+    echo "Error: The full path to the /annovar directory does not exist"
+    echo "Please ensure that this path is correctly defined above, under the "PREPARING THE SCRIPT" section"
+    exit 1
+
+fi
+
+
+#-------------------------------------------------------------------------------------------------------------------------------
 
 
 
