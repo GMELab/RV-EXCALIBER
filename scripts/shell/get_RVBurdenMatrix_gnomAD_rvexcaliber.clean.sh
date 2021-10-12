@@ -398,7 +398,7 @@ if [[ $# = 6 ]]; then
 
                 rm -f ${gnomAD_study}_gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}.txt
 
-                Rscript ${scripts}/Rscripts/get_Varlist_rvexcaliber.R ${outdir} ${gnomAD_study}_gnomAD ${gnomAD}/${gnomAD_study}_gnomAD_pruned_annotation_for_R_input_${coverage}.txt.gz ${gnomAD_MAF_threshold} NA ${MCAP_threshold} ${eth} ${coverage}
+                Rscript ${scripts}/Rscripts/get_Varlist_rvexcaliber.R ${outdir} ${gnomAD_study}_gnomAD ${gnomAD}/${gnomAD_study}_gnomAD_pruned_annotation_for_R_input_${coverage}.txt.gz ${gnomAD_MAF_threshold} NA ${MCAP_threshold} ${eth} ${coverage} "Y"
 
             done
             reassign
