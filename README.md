@@ -235,7 +235,7 @@ Each of the 4 shell scripts that are to be executed by the user will require eit
 ### 1A. ```get_RVBurdenMatrix_internal_rvexcaliber.clean.sh```
 **4** paths to be defined by the user
 
-| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
+| Path to be defined by user &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; | Corresponding variable name in script header | Example path |
 | ------ | ------ | ------ |
 | Full path to the cloned ```/RV-EXCALIBER``` directory (see [Download](#download)) | ```path_to_rvexcaliber``` | ```/genetics/RV-EXCALIBER``` |
 | Full path to the ANNOVAR perl scripts | ```annovar``` | ```/genetics/tools/annovar```
@@ -330,7 +330,7 @@ for chr in {1..22}; do
 
         for coverage in hcc; do
 
-          echo /genetics/outData/${i}_MIGen_BioImage_ExS_QC_RVBurdenMatrix_${gnomAD_MAF_threshold}_${MCAP_threshold}_${eth}_${coverage}.txt.gz >> /genetics/outData/MIGen_BioImage_ExS_QC_RVBurdenMatrix_filelist.txt
+          echo /genetics/outData/${chr}_MIGen_BioImage_ExS_QC_RVBurdenMatrix_${gnomAD_MAF_threshold}_${MCAP_threshold}_${eth}_${coverage}.txt.gz >> /genetics/outData/MIGen_BioImage_ExS_QC_RVBurdenMatrix_filelist.txt
 
        done
 
@@ -477,8 +477,8 @@ Any queries pertaining to the RV-EXCALIBER scripts or methodological framework c
 
 ## Citation
 
-### Preprint
- Lali, R., Chong, M., Omidi, A., Mohammadi-Shermirani, P., Le, A., Cui, E., and Paré, G. Calibrated rare variant genetic risk scores for complex disease prediction using large exome sequence repositories. _bioRxiv_ 2020.02.03.931519 (2020) doi:10.1101/2020.02.03.931519.
+### _Nature Communications_
+[Lali, R., Chong, M., Omidi, A. et al. Calibrated rare variant genetic risk scores for complex disease prediction using large exome sequence repositories. Nat Commun 12, 5852 (2021). https://doi.org/10.1038/s41467-021-26114-0](https://www.nature.com/articles/s41467-021-26114-0#citeas)
 
  ### GitHub repository
  [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5104893.svg)](https://doi.org/10.5281/zenodo.5104893)
