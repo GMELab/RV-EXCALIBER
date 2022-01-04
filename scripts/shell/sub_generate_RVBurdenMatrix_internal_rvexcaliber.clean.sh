@@ -25,7 +25,6 @@
 
 
 
-
 # Directory and name variables
 
 

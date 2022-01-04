@@ -82,6 +82,8 @@
 
 #                  single numeric value for a single threshold (e.g. 0.001)
 
+# Notes:           The gnomAD minor allele frequency thresholds must be greater than 1e-05 and less than 1
+
 #-------------------------------------------------------------------------------------------------------------------------------
 
 # MCAP_threshold
@@ -232,6 +234,11 @@ function stop_if_error {
 assoc_mod="rvexcaliber_base"
 
 
+
+
+# Script start
+
+
 # Check 'user entered' input variables
 
 
@@ -248,7 +255,9 @@ if [[ $# = 8 ]]; then
 
     gnomAD_MAF_threshold_check=$(echo ${gnomAD_MAF_threshold} | sed -e 's/,//g' -e 's/\.//g')
 
-    gnomAD_MAF_ge_1=$(echo ${gnomAD_MAF_threshold} | awk -F"," '{for(i=1;i<=NF;i++) print $i}' | awk '$1>=1' | awk 'END { print NR}')
+    gnomAD_MAF_ge_lim=$(echo ${gnomAD_MAF_threshold} | awk -F"," '{for(i=1;i<=NF;i++) print $i}' | awk '$1>=1' | awk 'END { print NR}')
+
+    gnomAD_MAF_le_lim=$(echo ${gnomAD_MAF_threshold} | awk -F"," '{for(i=1;i<=NF;i++) print $i}' | awk '$1<1e-05' | awk 'END { print NR}')
 
     # Check variables for MCAP thresholds
 
@@ -258,7 +267,7 @@ if [[ $# = 8 ]]; then
 
     MCAP_threshold_check=$(echo ${MCAP_threshold} | sed -e 's/,//g' -e 's/\.//g')
 
-    MCAP_ge_1=$(echo ${MCAP_threshold} | awk -F"," '{for(i=1;i<=NF;i++) print $i}' | awk '$1>=1' | awk 'END { print NR}')
+    MCAP_ge_lim=$(echo ${MCAP_threshold} | awk -F"," '{for(i=1;i<=NF;i++) print $i}' | awk '$1>=1' | awk 'END { print NR}')
 
     # Check variables for gnomAD ethnicity
 
@@ -278,10 +287,17 @@ if [[ $# = 8 ]]; then
         echo "See 'Explanation of input arguments' for further information"
         exit 1
 
-    elif [[ ${gnomAD_MAF_ge_1} -ge 1 ]]; then
+    elif [[ ${gnomAD_MAF_ge_lim} -ge 1 ]]; then
 
         echo -e "\n"
         echo "Error: Ensure all gnomAD MAF thresholds (i.e. 'gnomAD_MAF_threshold') are less than 1"
+        echo "See 'Explanation of input arguments' for further information"
+        exit 1
+
+    elif [[ ${gnomAD_MAF_le_lim} -ge 1 ]]; then
+
+        echo -e "\n"
+        echo "Error: Ensure all gnomAD MAF thresholds (i.e. 'gnomAD_MAF_threshold') are greater than 1e-05"
         echo "See 'Explanation of input arguments' for further information"
         exit 1
 
@@ -292,7 +308,7 @@ if [[ $# = 8 ]]; then
         echo "See 'Explanation of input arguments' for further information"
         exit 1
 
-    elif [[ ${MCAP_ge_1} -ge 1 ]]; then
+    elif [[ ${MCAP_ge_lim} -ge 1 ]]; then
 
         echo -e "\n"
         echo "Error: Ensure all MCAP thresholds (i.e. 'MCAP_threshold') are less than 1"
@@ -332,7 +348,7 @@ if [[ $# = 8 ]]; then
     elif [[ ! ${coverage} = "hcc" ]] && [[ ! ${coverage} = "rcc" ]]; then
 
         echo -e "\n"
-        echo "Error: Ensure that the 'high coverage coding  intersection variable' (i.e. 'coverage') is one of < "hcc" or "rcc" >"
+        echo "Error: Ensure that the 'site-based intersection' variable (i.e. 'coverage') is one of < "hcc" or "rcc" >"
         echo "See 'Explanation of input arguments' for further information"
         exit 1
 
@@ -458,9 +474,6 @@ if [[ $# = 8 ]]; then
         fi
 
 
-        # Script start
-
-
         # Generate Summary Associations for the user-defined internal testing or ranking
         # datasets using rvexcaliber
 
@@ -485,7 +498,7 @@ if [[ $# = 8 ]]; then
 
             function cond_state {
 
-                if [[ ${adjust_type} = "fulladjust" ]]; then
+                if [[ ${adjust_type} = "iCFadjust" ]]; then
 
                     echo "Adjusting gnomAD allele counts with the iCF"
 

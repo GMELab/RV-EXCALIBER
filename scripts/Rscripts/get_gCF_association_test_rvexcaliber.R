@@ -537,7 +537,8 @@ rank_test_df <-
   merge(
     ranking_SummaryAssociations_df,
     testing_SummaryAssociations_df,
-    by="Gene"
+    by=
+      "Gene"
   )
 
 
@@ -638,7 +639,8 @@ rank_test_df$gCF_index <-
             )
           )
         ),
-      by="gCF_index"
+      by=
+        "gCF_index"
     )
 
 
@@ -656,7 +658,8 @@ rank_test_gCF_df <-
   merge(
     rank_test_df,
     gCF_merge[,c(1,4)],
-    by="gCF_index"
+    by=
+      "gCF_index"
   )
 
 
@@ -813,7 +816,7 @@ rvexcaliber_fin_df <-
 
 
 rvexcaliber_fin_df_P_order <-
-  rvexcaliber_fin_df[order(rvexcaliber_fin_df[,4]),]
+  rvexcaliber_fin_df[order(rvexcaliber_fin_df$test_P_rvexcaliber_base_iCFgCFadjust),]
 
 allele_filt_prop_stats <-
   gco_prop(
@@ -828,7 +831,7 @@ allele_filt <-
   )
 
 rvexcaliber_fin_df_P_order_allele_filt <-
-  rvexcaliber_fin_df_P_order[rvexcaliber_fin_df_P_order[,3]>=allele_filt,]
+  rvexcaliber_fin_df_P_order[rvexcaliber_fin_df_P_order$test_gnomAD_allele_count_iCFgCFadjust>=allele_filt,]
 
 
 # Write Summary Association files
@@ -857,24 +860,33 @@ write.table(
 )
 
 
-# Calculate Genomin Inflation at the median of gene-based P-values
+# Calculate Genomic Inflation at the median of gene-based P-values
 
 
-GenomicInflationFactor_median <-
-  estlambda(
-    data=
-      rvexcaliber_fin_df_P_order_allele_filt$test_P_rvexcaliber_base_iCFgCFadjust,
-    plot=
-      FALSE,
-    proportion=
-      1,
-    method=
-      "median",
-    filter=
-      TRUE,
-    df=
-      1
-  )$estimate
+if (nrow(rvexcaliber_fin_df_P_order_allele_filt[rvexcaliber_fin_df_P_order_allele_filt$test_P_rvexcaliber_base_iCFgCFadjust==0,]) > 0) {
+
+    GenomicInflationFactor_median <-
+      NA
+
+} else {
+
+    GenomicInflationFactor_median <-
+      estlambda(
+        data=
+          rvexcaliber_fin_df_P_order_allele_filt$test_P_rvexcaliber_base_iCFgCFadjust,
+        plot=
+          FALSE,
+        proportion=
+          1,
+        method=
+          "median",
+        filter=
+          TRUE,
+        df=
+          1
+      )$estimate
+
+}
 
 lambda <-
   data.frame(
@@ -914,12 +926,13 @@ nb <-
 
 suppressMessages(
   QQplot(
-    rvexcaliber_fin_df_P_order_allele_filt[,4],
+    rvexcaliber_fin_df_P_order_allele_filt[rvexcaliber_fin_df_P_order_allele_filt$test_P_rvexcaliber_base_iCFgCFadjust!=0,]$test_P_rvexcaliber_base_iCFgCFadjust,
     "black",
     "red",
-    paste0("internal_study = ", internal_study, "; association model = ",assoc_mod,"\n","adjustment type = ",adjust_type, "; gnomAD count threshold = ",round(allele_filt,3),"\n","GenomicInfationFactor_median = ",round(GenomicInflationFactor_median,2),"; MAF_MCAP = ", MAF_MCAP,"; n genes = ", nb)
+    paste0("internal_study = ", internal_study,"\n","association model = ",assoc_mod,"\n","adjustment type = ",adjust_type,"\n","gnomAD count threshold = ",round(allele_filt,3),"\n","GenomicInfationFactor_median = ",round(GenomicInflationFactor_median,2),"\n","MAF_MCAP = ", MAF_MCAP,"\n","n genes = ", nb)
   )
 )
+
 
 # Generate mountain plots for 'iCFadjust' and 'iCFgCFadjust' models
 
@@ -928,7 +941,8 @@ mountain <-
   merge(
     rank_test_df_P_order,
     rvexcaliber_fin_df_P_order,
-    by="Gene"
+    by=
+      "Gene"
   )
 
 mountain_cumulative_sums <-

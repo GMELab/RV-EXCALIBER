@@ -82,12 +82,6 @@ ranking_RVBurdenMatrix <-
 gnomAD_RVBurdenMatrix  <-
   args[12]
 
-
-# Reset the 'adjust_type'
-
-
-if (adjust_type == "fulladjust") { adjust_type <- "iCFadjust" }
-
 assoc_mod <-
   "rvexcaliber_base"
 
@@ -252,8 +246,10 @@ setwd(outdir)
 default_ranking_SummaryAssociations_df <-
   read.delim(
     file=paste0(path_to_rvexcaliber,"/default_ranking_dataset/rvexcaliber_ranking_MIGen_exome_controls_0.001_0.025_nfe_high_coverage_coding_iCFadjust_rvexcaliber_base.txt"),
-    header=T,
-    sep="\t"
+    header=
+      TRUE,
+    sep=
+      "\t"
   )
 
 if (stage == "stage0") {
@@ -295,8 +291,10 @@ if (stage == "stage0") {
   ranking_SummaryAssociations_df <-
     read.delim(
       file=paste0("rvexcaliber_ranking_",internal_ranking_study,"_SummaryAssociations_",filter_names_txt),
-      header=T,
-      sep="\t"
+      header=
+        TRUE,
+      sep=
+        "\t"
     )
 
   gnomAD_RVBurdenMatrix <-

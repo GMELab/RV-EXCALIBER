@@ -28,6 +28,12 @@
 # Script start
 
 
+# Ensure numeric values do not change to scientific notation
+
+
+options(scipen=2)
+
+
 # Load packages
 
 
@@ -321,8 +327,8 @@ getBinary <- function(df, thresholds, filter, int_MAF=internal_MAF_threshold) {
                 "splicing",
                 "stoploss",
                 "stopgain",
-                "frameshift deletion",
-                "frameshift insertion"
+                "frameshift_deletion",
+                "frameshift_insertion"
               )
 
             out <-
