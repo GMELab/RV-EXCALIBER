@@ -377,7 +377,7 @@ rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 cd ${rvexcaliber_shell_scripts}
 
-bash get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh /genetics/outData MIGen_BioImage_ExS_QC NA 0.001,0.005 0.009,0.025 nfe hcc fulladjust
+bash get_SummaryAssociations_iCF_gCF_rvexcaliber.clean.sh /genetics/outData MIGen_BioImage_ExS_QC NA 0.001,0.005 0.009,0.025 nfe hcc fulladjust
 ```
 
 #### Condition B: You _do_ have a dedicated internal ranking dataset
@@ -391,7 +391,7 @@ rvexcaliber_shell_scripts=/genetics/RV-EXCALIBER/scripts/shell
 
 cd ${rvexcaliber_shell_scripts}
 
-bash get_RVBurdenMatrix_gnomAD_rvexcaliber.clean.sh /genetics/outData MIGen_BioImage_ExS_QC MIGen_OHS_ExS_QC 0.001,0.005 0.009,0.025 nfe hcc fulladjust
+bash get_SummaryAssociations_iCF_gCF_rvexcaliber.clean.sh /genetics/outData MIGen_BioImage_ExS_QC MIGen_OHS_ExS_QC 0.001,0.005 0.009,0.025 nfe hcc fulladjust
 ```
 
 
