@@ -439,20 +439,20 @@ if [[ $# = 6 ]]; then
         done
         reassign
 
+        rm -f ${outdir}/gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}*
+
         for gnomAD_study in {1..22}; do
 
             for MAF_MCAP in ${MAF_MCAP}; do
 
-                rm -f ${outdir}/gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}*
-
                 cat ${outdir}/${gnomAD_study}_gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}.txt >> ${outdir}/gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}.txt
-
-                gzip -f ${outdir}/gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}.txt
 
             done
             reassign
 
         done
+
+        gzip -f ${outdir}/gnomAD_variant_list_extracted_${MAF_MCAP}_${eth}_${coverage}.txt
 
         for gnomAD_study in {1..22}; do
 
